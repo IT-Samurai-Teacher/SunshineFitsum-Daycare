@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-poppins: var(--font-poppins);
+  --font-fredoka-one: var(--font-fredoka-one);
+  scroll-behavior: smooth; /* Add smooth scrolling for the entire site */
+}
+
+@layer base {
+  :root {
+    --background: 39 100% 97%;
+    --foreground: 20 15% 10%; /* Darkened for better contrast */
+
+    --card: 39 100% 97%;
+    --card-foreground: 20 15% 10%; /* Darkened for better contrast */
+
+    --popover: 39 100% 97%;
+    --popover-foreground: 20 15% 10%; /* Darkened for better contrast */
+
+    /* Updated colors based on logo palette */
+    --primary: 41 93% 58%; /* Sunshine Yellow */
+    --primary-foreground: 20 15% 10%; /* Darkened for better contrast */
+
+    --secondary: 25 95% 53%; /* Soft Orange */
+    --secondary-foreground: 20 15% 10%; /* Darkened for better contrast */
+
+    --accent-blue: 171 70% 50%; /* Sky Blue */
+    --accent-teal: 217 91% 60%; /* Teal Blue */
+    --accent-pink: 330 94% 82%; /* Baby Pink */
+    --accent-coral: 0 84% 60%; /* Coral Red */
+
+    --muted: 39 30% 90%;
+    --muted-foreground: 20 25% 25%; /* Darkened significantly for better contrast */
+
+    --destructive: 0 84% 60%; /* Coral Red */
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 39 30% 85%;
+    --input: 39 30% 85%;
+    --ring: 41 93% 58%; /* Sunshine Yellow */
+
+    --radius: 1rem;
+
+    --warm-cream: 39 100% 97%;
+    --light-yellow: 47 96% 77%; /* Light Yellow */
+    --warm-brown: 42 93% 33%; /* Warm Brown */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Performance optimizations */
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-fredoka font-normal;
+  }
+  
+  /* Performance optimizations for images */
+  img {
+    content-visibility: auto;
+  }
+  
+  /* Optimize animations */
+  .animate-float,
+  .animate-sunray {
+    will-change: transform;
+  }
+}
+
+@layer components {
+  .sunshine-gradient {
+    @apply bg-gradient-to-r from-sunshine-yellow to-soft-orange;
+  }
+
+  .sunshine-button {
+    @apply rounded-full px-6 py-3 font-fredoka font-normal text-foreground shadow-md transition-all 
+    hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-sunshine-yellow focus:ring-offset-2;
+  }
+
+  .sunshine-button-primary {
+    @apply sunshine-button bg-gradient-to-r from-sunshine-yellow to-soft-orange;
+  }
+
+  .sunshine-button-secondary {
+    @apply sunshine-button bg-white border-2 border-sunshine-yellow hover:border-soft-orange;
+  }
+
+  .sunshine-button-blue {
+    @apply sunshine-button bg-gradient-to-r from-sky-blue to-teal-blue text-white;
+  }
+
+  .sunshine-card {
+    @apply bg-white rounded-3xl shadow-md overflow-hidden border-2 border-muted;
+  }
+
+  .sunshine-section {
+    @apply py-16 w-full;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-fredoka text-center mb-8 text-foreground;
+  }
+
+  .section-subtitle {
+    @apply text-xl md:text-2xl font-medium text-center mb-12 max-w-3xl mx-auto text-muted-foreground;
+  }
+
+  .wavy-divider {
+    @apply w-full h-24 bg-no-repeat bg-center bg-contain;
+  }
+
+  .sun-decoration {
+    @apply absolute w-16 h-16 bg-sunshine-yellow rounded-full opacity-20;
+  }
+
+  /* Updated color text classes */
+  .colorful-text-primary {
+    @apply text-sunshine-yellow;
+  }
+
+  .colorful-text-secondary {
+    @apply text-soft-orange;
+  }
+
+  .colorful-text-blue {
+    @apply text-sky-blue;
+  }
+
+  .colorful-text-teal {
+    @apply text-teal-blue;
+  }
+
+  .colorful-text-pink {
+    @apply text-baby-pink;
+  }
+
+  .colorful-text-coral {
+    @apply text-coral-red;
+  }
+
+  .colorful-text-brown {
+    @apply text-warm-brown;
+  }
+
+  .high-contrast-text {
+    @apply text-foreground font-medium;
+  }
+  
+  /* Performance optimizations */
+  .hero-logo-container {
+    content-visibility: auto;
+    contain: layout style paint;
+  }
+  
+  .hero-logo-image {
+    will-change: transform;
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes sunray {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.animate-sunray {
+  animation: sunray 4s ease-in-out infinite;
+}
+
+/* Scalloped border */
+.scalloped-border {
+  position: relative;
+}
+
+.scalloped-border::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background-image: radial-gradient(circle at 10px -5px, transparent 12px, white 12px);
+  background-size: 20px 20px;
+  background-repeat: repeat-x;
+}
+
+.font-fredoka {
+  font-family: var(--font-fredoka-one);
+}
+
+/* Performance optimizations */
+.decoration-sunshine {
+  @apply absolute w-16 h-16 bg-sunshine-yellow rounded-full opacity-20;
+  will-change: transform;
+}
+
+.decoration-coral {
+  @apply absolute w-16 h-16 bg-coral-red rounded-full opacity-20;
+  will-change: transform;
+}
+
+.decoration-sky {
+  @apply absolute w-16 h-16 bg-sky-blue rounded-full opacity-20;
+  will-change: transform;
+}
+
+.decoration-teal {
+  @apply absolute w-16 h-16 bg-teal-blue rounded-full opacity-20;
+  will-change: transform;
+}
+
+.decoration-pink {
+  @apply absolute w-16 h-16 bg-baby-pink rounded-full opacity-20;
+  will-change: transform;
+}
+
+.decoration-orange {
+  @apply absolute w-16 h-16 bg-soft-orange rounded-full opacity-20;
+  will-change: transform;
+}
+
+.decoration-yellow {
+  @apply absolute w-16 h-16 bg-sunshine-yellow rounded-full opacity-20;
+  will-change: transform;
+}
+
+.decoration-brown {
+  @apply absolute w-16 h-16 bg-warm-brown rounded-full opacity-20;
+  will-change: transform;
+}
