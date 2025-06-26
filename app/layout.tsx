@@ -45,11 +45,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
+    default: "Sunshine Fitsum Daycare | Quality Childcare in Bellevue, WA",
     template: "%s | Sunshine Fitsum Daycare",
-    default: "Sunshine Fitsum Daycare - Where little ones bloom and grow",
   },
-  description:
-    "A nurturing daycare center with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years in Everett, WA.",
+  description: "Sunshine Fitsum Daycare offers nurturing, educational childcare in Bellevue, WA. Safe, loving environment for infants, toddlers, and preschoolers. Schedule a tour today!",
   keywords: "daycare, childcare, Everett, preschool, infant care, toddler care, early education, Washington",
   authors: [{ name: "Fitsum Wodajo" }],
   creator: "Fitsum Wodajo",

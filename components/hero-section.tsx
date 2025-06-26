@@ -9,8 +9,8 @@ import { useState, useEffect } from "react"
 export function HeroSection() {
   const [imgError, setImgError] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  // Use local image instead of external URL for better performance
-  const logoUrl = "/logo-fallback.png"
+  // Use local image for logo
+  const logoUrl = "/logo.png"
 
   useEffect(() => {
     // Check if we're on mobile
@@ -85,14 +85,11 @@ export function HeroSection() {
                     <Image
                       src={logoUrl}
                       alt="Sunshine Fitsum Daycare Logo"
-                      fill
-                      style={{ objectFit: "contain" }}
-                      className="scale-100 hero-logo-image"
+                      width={isMobile ? 180 : 320}
+                      height={isMobile ? 180 : 320}
                       priority
-                      sizes="(max-width: 768px) 80vw, 40vw"
-                      quality={85}
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                      onError={() => setImgError(true)}
+                      className="rounded-xl shadow-lg"
                     />
                   </div>
                 </div>
