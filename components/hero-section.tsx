@@ -9,8 +9,8 @@ import { useState, useEffect } from "react"
 export function HeroSection() {
   const [imgError, setImgError] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  // Use local image for logo
-  const logoUrl = "/logo.png"
+  const logoUrl =
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sunshine%20Fitsum%20Daycare%20Logo%20Final.jpg-NB36oU9t9HlifVJkRHFcO7FzvTusvV.jpeg"
 
   useEffect(() => {
     // Check if we're on mobile
@@ -82,15 +82,31 @@ export function HeroSection() {
                 <div className="absolute inset-0 flex items-center justify-center p-8">
                   {/* Extract just the sun part of the logo for the circular frame */}
                   <div className="relative w-full h-full">
-                    <Image
-                      src={logoUrl}
-                      alt="Sunshine Fitsum Daycare Logo"
-                      width={isMobile ? 180 : 320}
-                      height={isMobile ? 180 : 320}
-                      priority
-                      onError={() => setImgError(true)}
-                      className="rounded-xl shadow-lg"
-                    />
+                    {imgError ? (
+                      // Fallback for error
+                      <Image
+                        src="/logo-fallback.png"
+                        alt="Sunshine Fitsum Daycare Logo"
+                        fill
+                        style={{ objectFit: "contain" }}
+                        className="scale-100 hero-logo-image"
+                        priority
+                        sizes="(max-width: 768px) 80vw, 40vw"
+                      />
+                    ) : (
+                      // Regular image
+                      <Image
+                        src={logoUrl || "/placeholder.svg"}
+                        alt="Sunshine Fitsum Daycare Logo"
+                        fill
+                        style={{ objectFit: "contain" }}
+                        className="scale-[1.3] hero-logo-image"
+                        priority
+                        sizes="(max-width: 768px) 80vw, 40vw"
+                        quality={90}
+                        onError={() => setImgError(true)}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

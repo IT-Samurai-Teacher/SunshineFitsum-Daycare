@@ -1,17 +1,23 @@
-import { MetadataRoute } from "next"
+import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sunshinefitsumdaycare.com"
-  
-  // Get current date for lastModified
-  const currentDate = new Date()
-  
+  // Only generate sitemap for production domain
+  const isProduction =
+    process.env.VERCEL_ENV === "production" && process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com"
+
+  if (!isProduction) {
+    return []
+  }
+
+  const baseUrl = "https://www.sunshinefitsumdaycare.com"
+  const currentDate = new Date().toISOString()
+
   return [
     {
       url: baseUrl,
       lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 1.0,
+      changeFrequency: "monthly",
+      priority: 1,
     },
     {
       url: `${baseUrl}/about`,
@@ -23,7 +29,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/programs`,
       lastModified: currentDate,
       changeFrequency: "monthly",
-      priority: 0.9,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/gallery`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/pricing`,
@@ -34,32 +52,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/enrollment`,
       lastModified: currentDate,
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/contact`,
       lastModified: currentDate,
       changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/gallery`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/thank-you`,
-      lastModified: currentDate,
-      changeFrequency: "yearly",
-      priority: 0.3,
+      priority: 0.8,
     },
   ]
 }

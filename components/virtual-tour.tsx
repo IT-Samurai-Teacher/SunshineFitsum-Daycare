@@ -93,7 +93,7 @@ export function VirtualTour() {
       setCurrentLocation(location)
 
       // Play a subtle transition sound if not muted
-      if (audioRef.current && !isMuted && audioRef.current.readyState >= 2) {
+      if (audioRef.current && !isMuted) {
         audioRef.current.currentTime = 0
         audioRef.current.play().catch((e) => console.log("Audio play prevented:", e))
       }
@@ -283,7 +283,7 @@ export function VirtualTour() {
       </div>
 
       {/* Hidden audio element for sound effects */}
-      <audio ref={audioRef} className="hidden" preload="none">
+      <audio ref={audioRef} className="hidden">
         <source src="/sounds/transition.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>

@@ -1,57 +1,45 @@
-import { MetadataRoute } from "next"
+import type { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
-  const isProduction = process.env.NODE_ENV === "production"
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sunshinefitsumdaycare.com"
-  
-  if (!isProduction) {
-    // Development environment - allow indexing for testing
+  // Check if we're on the production domain
+  const isProductionDomain =
+    process.env.VERCEL_ENV === "production" &&
+    (process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com" ||
+      process.env.NEXT_PUBLIC_VERCEL_URL === "www.sunshinefitsumdaycare.com")
+
+  // For non-production domains (Vercel previews, development, etc.)
+  if (!isProductionDomain) {
     return {
-      rules: [
-        {
-          userAgent: "*",
-          allow: "/",
-        },
-      ],
-      sitemap: `${baseUrl}/sitemap.xml`,
+      rules: {
+        userAgent: "*",
+        disallow: "/",
+      },
+      // No sitemap for non-production
     }
   }
-  
-  // Production environment
+
+  // For production domain only
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/_next/",
-          "/admin/",
-          "/private/",
-        ],
+        disallow: ["/api/*", "/_next/*", "/thank-you", "/_vercel/*", "/admin/*"],
+      },
+      // Additional rules for specific bots
+      {
+        userAgent: "GPTBot",
+        disallow: "/",
       },
       {
-        userAgent: "Googlebot",
-        allow: "/",
-        disallow: [
-          "/api/",
-          "/_next/",
-          "/admin/",
-          "/private/",
-        ],
+        userAgent: "ChatGPT-User",
+        disallow: "/",
       },
       {
-        userAgent: "Bingbot",
-        allow: "/",
-        disallow: [
-          "/api/",
-          "/_next/",
-          "/admin/",
-          "/private/",
-        ],
+        userAgent: "CCBot",
+        disallow: "/",
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    sitemap: "https://www.sunshinefitsumdaycare.com/sitemap.xml",
   }
 }

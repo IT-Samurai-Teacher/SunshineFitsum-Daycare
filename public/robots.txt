@@ -1,0 +1,15 @@
+# Robots.txt for Sunshine Fitsum Daycare
+# Only allow indexing on production domain: www.sunshinefitsumdaycare.com
+
+# For production domain
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /thank-you
+
+# Sitemap location (only for production)
+Sitemap: https://www.sunshinefitsumdaycare.com/sitemap.xml
+
+# Block all other domains/subdomains
+# This will be overridden by the dynamic robots.ts for non-production

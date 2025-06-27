@@ -55,10 +55,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Performance optimizations */
-    text-rendering: optimizeSpeed;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
   h1,
   h2,
@@ -67,17 +63,6 @@
   h5,
   h6 {
     @apply font-fredoka font-normal;
-  }
-  
-  /* Performance optimizations for images */
-  img {
-    content-visibility: auto;
-  }
-  
-  /* Optimize animations */
-  .animate-float,
-  .animate-sunray {
-    will-change: transform;
   }
 }
 
@@ -159,16 +144,6 @@
   .high-contrast-text {
     @apply text-foreground font-medium;
   }
-  
-  /* Performance optimizations */
-  .hero-logo-container {
-    content-visibility: auto;
-    contain: layout style paint;
-  }
-  
-  .hero-logo-image {
-    will-change: transform;
-  }
 }
 
 /* Custom animations */
@@ -223,43 +198,35 @@
   font-family: var(--font-fredoka-one);
 }
 
-/* Performance optimizations */
+/* Decorative elements with logo colors */
 .decoration-sunshine {
-  @apply absolute w-16 h-16 bg-sunshine-yellow rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-sunshine-yellow/20;
 }
 
 .decoration-coral {
-  @apply absolute w-16 h-16 bg-coral-red rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-coral-red/20;
 }
 
 .decoration-sky {
-  @apply absolute w-16 h-16 bg-sky-blue rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-sky-blue/20;
 }
 
 .decoration-teal {
-  @apply absolute w-16 h-16 bg-teal-blue rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-teal-blue/20;
 }
 
 .decoration-pink {
-  @apply absolute w-16 h-16 bg-baby-pink rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-baby-pink/20;
 }
 
 .decoration-orange {
-  @apply absolute w-16 h-16 bg-soft-orange rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-soft-orange/20;
 }
 
 .decoration-yellow {
-  @apply absolute w-16 h-16 bg-sunshine-yellow rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-light-yellow/20;
 }
 
 .decoration-brown {
-  @apply absolute w-16 h-16 bg-warm-brown rounded-full opacity-20;
-  will-change: transform;
+  @apply bg-warm-brown/20;
 }

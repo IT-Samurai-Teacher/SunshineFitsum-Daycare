@@ -9,16 +9,12 @@ import { Footer } from "@/components/footer"
 import { Analytics } from "@vercel/analytics/react"
 import { Suspense } from "react"
 import Script from "next/script"
-import { ErrorBoundary } from "@/components/error-boundary"
-import { PageLoader } from "@/components/loading-spinner"
-import { PerformanceMonitor } from "@/components/performance-monitor"
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-poppins",
-  preload: true,
 })
 
 const fredokaOne = Fredoka_One({
@@ -26,7 +22,6 @@ const fredokaOne = Fredoka_One({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-fredoka-one",
-  preload: true,
 })
 
 // Check if we're on production domain
@@ -45,10 +40,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Sunshine Fitsum Daycare | Quality Childcare in Bellevue, WA",
     template: "%s | Sunshine Fitsum Daycare",
+    default: "Sunshine Fitsum Daycare - Where little ones bloom and grow",
   },
-  description: "Sunshine Fitsum Daycare offers nurturing, educational childcare in Bellevue, WA. Safe, loving environment for infants, toddlers, and preschoolers. Schedule a tour today!",
+  description:
+    "A nurturing daycare center with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years in Everett, WA.",
   keywords: "daycare, childcare, Everett, preschool, infant care, toddler care, early education, Washington",
   authors: [{ name: "Fitsum Wodajo" }],
   creator: "Fitsum Wodajo",
@@ -133,11 +129,6 @@ export default function RootLayout({
       <head>
         {/* Prevent indexing on non-production domains */}
         {!isProduction && <meta name="robots" content="noindex, nofollow" />}
-
-        {/* Preload critical resources */}
-        <link rel="preload" href="/logo-fallback.png" as="image" type="image/png" />
-        <link rel="preload" href="/apple-icon.png" as="image" type="image/png" />
-        <link rel="preload" href="/icon.png" as="image" type="image/png" />
 
         {/* Enhanced favicon and icon links - using dynamic generation */}
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -316,17 +307,14 @@ export default function RootLayout({
           </noscript>
         )}
 
-        <ErrorBoundary>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-            <Suspense fallback={<PageLoader />}>
-              <Header />
-              <main className="min-h-screen">{children}</main>
-              <Footer />
-            </Suspense>
-            {isProduction && <Analytics />}
-            {isProduction && <PerformanceMonitor />}
-          </ThemeProvider>
-        </ErrorBoundary>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Header />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+          </Suspense>
+          {isProduction && <Analytics />}
+        </ThemeProvider>
 
         {/* Service Worker - Only on production */}
         {isProduction && (
