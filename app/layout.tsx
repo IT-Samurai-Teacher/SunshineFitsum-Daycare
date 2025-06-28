@@ -30,7 +30,7 @@ const isProduction =
   (process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com" ||
     process.env.NEXT_PUBLIC_VERCEL_URL === "www.sunshinefitsumdaycare.com")
 
-// New viewport export format for Next.js 15
+// New viewport export format for Next.js 14
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,

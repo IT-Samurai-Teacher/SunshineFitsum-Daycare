@@ -230,3 +230,26 @@
 .decoration-brown {
   @apply bg-warm-brown/20;
 }
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-sunray {
+    animation: none;
+  }
+  
+  .transition-all,
+  .transition-transform,
+  .transition-opacity {
+    transition: none;
+  }
+}
