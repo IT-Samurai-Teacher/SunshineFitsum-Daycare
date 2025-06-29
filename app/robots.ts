@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
-  // Check if we're on the production domain
-  const isProductionDomain =
-    process.env.VERCEL_ENV === "production" &&
-    (process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com" ||
-      process.env.NEXT_PUBLIC_VERCEL_URL === "www.sunshinefitsumdaycare.com")
+  // Get the current domain from headers or environment
+  const currentDomain = process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost'
+  
+  // Only allow indexing on the exact production domain
+  const isProductionDomain = currentDomain === 'www.sunshinefitsumdaycare.com' || 
+                            currentDomain === 'sunshinefitsumdaycare.com' ||
+                            process.env.VERCEL_ENV === 'production'
 
   // For non-production domains (Vercel previews, development, etc.)
   if (!isProductionDomain) {
@@ -18,7 +20,7 @@ export default function robots(): MetadataRoute.Robots {
     }
   }
 
-  // For production domain only
+  // For production domain only - FULL SEO ACCESS
   return {
     rules: [
       {
@@ -34,7 +36,7 @@ export default function robots(): MetadataRoute.Robots {
           "/.*"
         ],
       },
-      // Block AI crawlers and scrapers
+      // Block AI crawlers and scrapers (optional - you can remove if you want AI indexing)
       {
         userAgent: "GPTBot",
         disallow: "/",

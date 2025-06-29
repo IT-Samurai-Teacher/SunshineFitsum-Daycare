@@ -26,11 +26,30 @@ const fredokaOne = Fredoka_One({
   preload: true,
 })
 
-// Check if we're on production domain
-const isProduction =
-  process.env.VERCEL_ENV === "production" &&
-  (process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com" ||
-    process.env.NEXT_PUBLIC_VERCEL_URL === "www.sunshinefitsumdaycare.com")
+// Enhanced production domain checking
+function isProductionDomain(): boolean {
+  // Check multiple environment variables for production domain
+  const vercelUrl = process.env.VERCEL_URL
+  const publicUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  const vercelEnv = process.env.VERCEL_ENV
+  
+  // Production domain variations
+  const productionDomains = [
+    'www.sunshinefitsumdaycare.com',
+    'sunshinefitsumdaycare.com'
+  ]
+  
+  // Check if current domain matches production
+  const isProductionUrl = productionDomains.includes(vercelUrl || '') || 
+                         productionDomains.includes(publicUrl || '')
+  
+  // Also check if explicitly set as production environment
+  const isProductionEnv = vercelEnv === 'production'
+  
+  return isProductionUrl || isProductionEnv
+}
+
+const isProduction = isProductionDomain()
 
 // New viewport export format for Next.js 14
 export const viewport: Viewport = {

@@ -1,13 +1,15 @@
 import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Get the current domain
+  const currentDomain = process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost'
+  
   // Only generate sitemap for production domain
-  const isProduction =
-    process.env.VERCEL_ENV === "production" && 
-    (process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com" || 
-     process.env.NEXT_PUBLIC_VERCEL_URL === "www.sunshinefitsumdaycare.com")
+  const isProductionDomain = currentDomain === 'www.sunshinefitsumdaycare.com' || 
+                            currentDomain === 'sunshinefitsumdaycare.com' ||
+                            process.env.VERCEL_ENV === 'production'
 
-  if (!isProduction) {
+  if (!isProductionDomain) {
     return []
   }
 
