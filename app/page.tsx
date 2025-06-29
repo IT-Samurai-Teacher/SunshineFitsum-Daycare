@@ -13,25 +13,33 @@ export const viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "Sunshine Fitsum Daycare - Where Little Ones Bloom and Grow",
+  title: "Licensed Childcare in Everett, WA | Sunshine Fitsum Daycare",
   description:
-    "A nurturing daycare center in Everett, WA with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years.",
+    "Licensed daycare center in Everett, WA offering nurturing care for infants, toddlers & preschoolers. Nature-based curriculum, bright facilities, experienced staff. Call (206) 688-9088 for enrollment.",
   keywords:
-    "daycare, childcare, Everett, WA, preschool, infant care, toddler care, early education, nature-based curriculum",
+    "daycare Everett WA, childcare Everett Washington, preschool Everett, infant care, toddler daycare, licensed childcare, early education, nature-based curriculum, DCYF licensed, quality childcare",
   alternates: {
     canonical: getCanonicalUrl("/"),
   },
   openGraph: {
-    title: "Sunshine Fitsum Daycare - Where Little Ones Bloom and Grow",
+    title: "Licensed Childcare in Everett, WA | Sunshine Fitsum Daycare",
     description:
-      "A nurturing daycare center in Everett, WA with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years.",
+      "Licensed daycare center in Everett, WA offering nurturing care for infants, toddlers & preschoolers. Nature-based curriculum, bright facilities, experienced staff.",
     url: getCanonicalUrl("/"),
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Sunshine Fitsum Daycare - Licensed Childcare in Everett, WA",
+      },
+    ],
   },
   twitter: {
-    title: "Sunshine Fitsum Daycare - Where Little Ones Bloom and Grow",
+    title: "Licensed Childcare in Everett, WA | Sunshine Fitsum Daycare",
     description:
-      "A nurturing daycare center in Everett, WA with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years.",
+      "Licensed daycare center in Everett, WA offering nurturing care for infants, toddlers & preschoolers. Nature-based curriculum, bright facilities, experienced staff.",
   },
 }
 

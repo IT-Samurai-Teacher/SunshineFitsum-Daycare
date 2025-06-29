@@ -15,6 +15,7 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-poppins",
+  preload: true,
 })
 
 const fredokaOne = Fredoka_One({
@@ -22,6 +23,7 @@ const fredokaOne = Fredoka_One({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-fredoka-one",
+  preload: true,
 })
 
 // Check if we're on production domain
@@ -36,17 +38,31 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: "#FFD166",
+  colorScheme: "light",
 }
 
 export const metadata: Metadata = {
   title: {
     template: "%s | Sunshine Fitsum Daycare",
-    default: "Sunshine Fitsum Daycare - Where little ones bloom and grow",
+    default: "Sunshine Fitsum Daycare - Where Little Ones Bloom and Grow | Licensed Childcare in Everett, WA",
   },
   description:
-    "A nurturing daycare center with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years in Everett, WA.",
-  keywords: "daycare, childcare, Everett, preschool, infant care, toddler care, early education, Washington",
-  authors: [{ name: "Fitsum Wodajo" }],
+    "Licensed daycare center in Everett, WA offering nurturing care for infants, toddlers & preschoolers. Nature-based curriculum, bright facilities, experienced staff. Call (206) 688-9088.",
+  keywords: [
+    "daycare Everett WA",
+    "childcare Everett Washington", 
+    "preschool Everett",
+    "infant care Everett",
+    "toddler daycare",
+    "licensed childcare",
+    "early education",
+    "nature-based curriculum",
+    "Sunshine Fitsum Daycare",
+    "DCYF licensed",
+    "quality childcare",
+    "Snohomish County daycare"
+  ].join(", "),
+  authors: [{ name: "Fitsum Wodajo", url: "https://www.sunshinefitsumdaycare.com" }],
   creator: "Fitsum Wodajo",
   publisher: "Sunshine Fitsum Daycare",
   formatDetection: {
@@ -62,8 +78,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
-      { url: "/icon.png", type: "image/svg+xml" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
@@ -81,26 +96,31 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.sunshinefitsumdaycare.com",
     siteName: "Sunshine Fitsum Daycare",
-    title: "Sunshine Fitsum Daycare - Where little ones bloom and grow",
-    description: "A nurturing daycare center with a nature-based curriculum in Everett, WA",
+    title: "Sunshine Fitsum Daycare - Licensed Childcare in Everett, WA",
+    description: "Licensed daycare center offering nurturing care for infants, toddlers & preschoolers in Everett, WA. Nature-based curriculum, experienced staff.",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Sunshine Fitsum Daycare",
+        alt: "Sunshine Fitsum Daycare - Licensed Childcare in Everett, WA",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sunshine Fitsum Daycare",
-    description: "A nurturing daycare center with a nature-based curriculum in Everett, WA",
+    title: "Sunshine Fitsum Daycare - Licensed Childcare in Everett, WA",
+    description: "Licensed daycare center offering nurturing care for infants, toddlers & preschoolers in Everett, WA.",
     images: ["/opengraph-image"],
+    creator: "@SunshineDaycare",
   },
   robots: {
     index: isProduction,
     follow: isProduction,
+    noarchive: !isProduction,
+    nosnippet: !isProduction,
+    noimageindex: !isProduction,
     googleBot: {
       index: isProduction,
       follow: isProduction,
@@ -111,12 +131,22 @@ export const metadata: Metadata = {
   },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
+    yandex: process.env.YANDEX_VERIFICATION,
+    bing: process.env.BING_VERIFICATION,
   },
   generator: "Next.js",
-  // Additional SEO metadata
+  applicationName: "Sunshine Fitsum Daycare",
+  referrer: "origin-when-cross-origin",
   category: "education",
   classification: "childcare",
-  referrer: "origin-when-cross-origin",
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "Sunshine Daycare",
+    "mobile-web-app-capable": "yes",
+    "msapplication-TileColor": "#FFD166",
+    "msapplication-config": "/browserconfig.xml",
+  },
 }
 
 export default function RootLayout({
@@ -128,15 +158,24 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Prevent indexing on non-production domains */}
-        {!isProduction && <meta name="robots" content="noindex, nofollow" />}
+        {!isProduction && <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />}
 
         {/* Enhanced favicon and icon links - using dynamic generation */}
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/icon.png" type="image/svg+xml" />
-        <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+        <link rel="icon" href="/icon.png" type="image/png" sizes="192x192" />
         <link rel="icon" href="/icon-512.png" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
         <link rel="mask-icon" href="/safari-pinned-tab.png" color="#FFD166" />
+
+        {/* DNS prefetch for external domains */}
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+        {/* Preconnect for critical external resources */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* PWA and mobile optimization */}
         <meta name="mobile-web-app-capable" content="yes" />
@@ -169,7 +208,11 @@ export default function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', 'G-SY1RMCC1XT');
+                gtag('config', 'G-SY1RMCC1XT', {
+                  page_title: document.title,
+                  page_location: window.location.href,
+                  send_page_view: true
+                });
                 gtag('config', 'AW-17065545233');
               `}
             </Script>
@@ -219,7 +262,7 @@ export default function RootLayout({
                 ],
                 priceRange: "$$$",
                 description:
-                  "A nurturing daycare center with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years.",
+                  "Licensed daycare center in Everett, WA offering nurturing care for infants, toddlers & preschoolers. Nature-based curriculum, bright facilities, experienced staff.",
                 hasOfferCatalog: {
                   "@type": "OfferCatalog",
                   name: "Childcare Programs",
@@ -229,6 +272,7 @@ export default function RootLayout({
                       itemOffered: {
                         "@type": "Service",
                         name: "Infant Care (6-18 months)",
+                        description: "Nurturing care for babies with personalized routines and sensory experiences.",
                       },
                     },
                     {
@@ -236,6 +280,7 @@ export default function RootLayout({
                       itemOffered: {
                         "@type": "Service",
                         name: "Toddler Care (18 months-3 years)",
+                        description: "Active exploration and discovery with language development focus.",
                       },
                     },
                     {
@@ -243,6 +288,7 @@ export default function RootLayout({
                       itemOffered: {
                         "@type": "Service",
                         name: "Preschool (3-6 years)",
+                        description: "Kindergarten readiness program with play-based learning.",
                       },
                     },
                   ],
@@ -251,6 +297,8 @@ export default function RootLayout({
                   "@type": "AggregateRating",
                   ratingValue: "5.0",
                   reviewCount: "2",
+                  bestRating: "5",
+                  worstRating: "1",
                 },
                 review: [
                   {
@@ -262,9 +310,12 @@ export default function RootLayout({
                     reviewRating: {
                       "@type": "Rating",
                       ratingValue: "5",
+                      bestRating: "5",
+                      worstRating: "1",
                     },
                     reviewBody:
                       "I can't wait for my grand babies to attend school with Ms. Fitsum! Darling center with age appropriate games and activities. Great location!",
+                    datePublished: "2024-01-15",
                   },
                   {
                     "@type": "Review",
@@ -275,11 +326,36 @@ export default function RootLayout({
                     reviewRating: {
                       "@type": "Rating",
                       ratingValue: "5",
+                      bestRating: "5",
+                      worstRating: "1",
                     },
                     reviewBody:
                       "Fitsum is an awesome childcare professional with many years of experience working in the school districts, with kids, and with people with disabilities. Highly recommend!",
+                    datePublished: "2024-01-10",
                   },
                 ],
+                founder: {
+                  "@type": "Person",
+                  name: "Fitsum Wodajo",
+                  jobTitle: "Founder & Director",
+                },
+                areaServed: {
+                  "@type": "City",
+                  name: "Everett",
+                  containedInPlace: {
+                    "@type": "State",
+                    name: "Washington",
+                  },
+                },
+                serviceArea: {
+                  "@type": "GeoCircle",
+                  geoMidpoint: {
+                    "@type": "GeoCoordinates",
+                    latitude: 47.9789,
+                    longitude: -122.2021,
+                  },
+                  geoRadius: "25000",
+                },
               }),
             }}
           />
@@ -293,6 +369,10 @@ export default function RootLayout({
         <meta name="geo.placename" content="Everett" />
         <meta name="geo.position" content="47.9789;-122.2021" />
         <meta name="ICBM" content="47.9789, -122.2021" />
+        <meta name="DC.title" content="Sunshine Fitsum Daycare - Licensed Childcare in Everett, WA" />
+        <meta name="DC.creator" content="Fitsum Wodajo" />
+        <meta name="DC.subject" content="Childcare, Daycare, Early Education, Everett WA" />
+        <meta name="DC.description" content="Licensed daycare center offering nurturing care for infants, toddlers & preschoolers in Everett, WA." />
       </head>
       <body className={`${poppins.variable} ${fredokaOne.variable} font-poppins bg-cream`}>
         {/* Google Tag Manager (noscript) - Only on production */}

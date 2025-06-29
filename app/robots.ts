@@ -24,9 +24,17 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/*", "/_next/*", "/thank-you", "/_vercel/*", "/admin/*"],
+        disallow: [
+          "/api/*", 
+          "/_next/*", 
+          "/thank-you", 
+          "/_vercel/*", 
+          "/admin/*",
+          "/*.json$",
+          "/.*"
+        ],
       },
-      // Additional rules for specific bots
+      // Block AI crawlers and scrapers
       {
         userAgent: "GPTBot",
         disallow: "/",
@@ -37,6 +45,14 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: "CCBot",
+        disallow: "/",
+      },
+      {
+        userAgent: "anthropic-ai",
+        disallow: "/",
+      },
+      {
+        userAgent: "Claude-Web",
         disallow: "/",
       },
     ],

@@ -17,7 +17,9 @@ export function getCanonicalUrl(path: string): string {
  * Check if current environment is production
  */
 export function isProduction(): boolean {
-  return process.env.VERCEL_ENV === "production" && process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com"
+  return process.env.VERCEL_ENV === "production" && 
+    (process.env.VERCEL_URL === "www.sunshinefitsumdaycare.com" ||
+     process.env.NEXT_PUBLIC_VERCEL_URL === "www.sunshinefitsumdaycare.com")
 }
 
 /**
@@ -62,7 +64,7 @@ export function generateLocalBusinessStructuredData() {
     ],
     priceRange: "$$$",
     description:
-      "A nurturing daycare center with a nature-based curriculum, bright facilities, and focus on joyful learning for children ages 6 months to 5 years.",
+      "Licensed daycare center in Everett, WA offering nurturing care for infants, toddlers & preschoolers. Nature-based curriculum, bright facilities, experienced staff.",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Childcare Programs",
@@ -72,6 +74,7 @@ export function generateLocalBusinessStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Infant Care (6-18 months)",
+            description: "Nurturing care for babies with personalized routines and sensory experiences.",
           },
         },
         {
@@ -79,6 +82,7 @@ export function generateLocalBusinessStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Toddler Care (18 months-3 years)",
+            description: "Active exploration and discovery with language development focus.",
           },
         },
         {
@@ -86,6 +90,7 @@ export function generateLocalBusinessStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Preschool (3-6 years)",
+            description: "Kindergarten readiness program with play-based learning.",
           },
         },
       ],
@@ -94,6 +99,8 @@ export function generateLocalBusinessStructuredData() {
       "@type": "AggregateRating",
       ratingValue: "5.0",
       reviewCount: "2",
+      bestRating: "5",
+      worstRating: "1",
     },
     review: [
       {
@@ -105,9 +112,12 @@ export function generateLocalBusinessStructuredData() {
         reviewRating: {
           "@type": "Rating",
           ratingValue: "5",
+          bestRating: "5",
+          worstRating: "1",
         },
         reviewBody:
           "I can't wait for my grand babies to attend school with Ms. Fitsum! Darling center with age appropriate games and activities. Great location!",
+        datePublished: "2024-01-15",
       },
       {
         "@type": "Review",
@@ -118,11 +128,36 @@ export function generateLocalBusinessStructuredData() {
         reviewRating: {
           "@type": "Rating",
           ratingValue: "5",
+          bestRating: "5",
+          worstRating: "1",
         },
         reviewBody:
           "Fitsum is an awesome childcare professional with many years of experience working in the school districts, with kids, and with people with disabilities. Highly recommend!",
+        datePublished: "2024-01-10",
       },
     ],
+    founder: {
+      "@type": "Person",
+      name: "Fitsum Wodajo",
+      jobTitle: "Founder & Director",
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Everett",
+      containedInPlace: {
+        "@type": "State",
+        name: "Washington",
+      },
+    },
+    serviceArea: {
+      "@type": "GeoCircle",
+      geoMidpoint: {
+        "@type": "GeoCoordinates",
+        latitude: 47.9789,
+        longitude: -122.2021,
+      },
+      geoRadius: "25000",
+    },
   }
 }
 
@@ -140,17 +175,21 @@ export const commonSEOData = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Sunshine Fitsum Daycare",
+        alt: "Sunshine Fitsum Daycare - Licensed Childcare in Everett, WA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image" as const,
     images: ["/opengraph-image"],
+    creator: "@SunshineDaycare",
   },
   robots: {
     index: isProduction(),
     follow: isProduction(),
+    noarchive: !isProduction(),
+    nosnippet: !isProduction(),
+    noimageindex: !isProduction(),
     googleBot: {
       index: isProduction(),
       follow: isProduction(),
@@ -159,4 +198,51 @@ export const commonSEOData = {
       "max-snippet": -1,
     },
   },
+}
+
+/**
+ * Generate breadcrumb structured data
+ */
+export function generateBreadcrumbStructuredData(items: Array<{name: string, url: string}>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  }
+}
+
+/**
+ * Generate FAQ structured data
+ */
+export function generateFAQStructuredData(faqs: Array<{question: string, answer: string}>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(faq => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  }
+}
+
+/**
+ * SEO-optimized keywords for different pages
+ */
+export const pageKeywords = {
+  home: "daycare Everett WA, childcare Everett Washington, preschool Everett, infant care, toddler daycare, licensed childcare, early education, nature-based curriculum, DCYF licensed, quality childcare",
+  about: "daycare history, childcare team, Fitsum Wodajo, daycare certifications, licensed childcare, Everett daycare, experienced childcare provider",
+  programs: "infant daycare, toddler program, preschool program, childcare curriculum, early childhood education, age-appropriate activities, developmental milestones",
+  enrollment: "daycare enrollment, childcare registration, apply for daycare, childcare availability, daycare waitlist, enrollment process",
+  pricing: "daycare pricing, childcare costs, tuition rates, infant care cost, preschool tuition, affordable childcare",
+  contact: "daycare contact, childcare phone number, daycare location, daycare hours, schedule tour, virtual tour",
+  gallery: "daycare photos, childcare facilities, classroom images, playground pictures, learning environment",
 }
